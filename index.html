@@ -1,0 +1,614 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="A high-tech, colorful portfolio page with a carousel timeline and modal content."/>
+<title>My High-Tech Portfolio</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700&display=swap" rel="stylesheet">
+<style>
+    html, body {
+        margin: 0; 
+        padding: 0; 
+        font-family: 'Roboto Mono', monospace;
+        background: #fdfdfd;
+        color: #333;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        top:0; left:0; right:0; bottom:0;
+        z-index: -1;
+        background: linear-gradient(120deg, #f0f4ff, #fff0f6, #f0fff4);
+        background-size: 600% 600%;
+        animation: pastelGradient 10s ease infinite;
+    }
+
+    @keyframes pastelGradient {
+        0%{background-position:0% 50%}
+        50%{background-position:100% 50%}
+        100%{background-position:0% 50%}
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(255,255,255,0.8);
+        display: flex;
+        justify-content: center;
+        padding: 20px 0;
+        backdrop-filter: blur(10px);
+        z-index: 999;
+        transition: background 0.3s ease;
+        border-bottom: 1px solid #ccc;
+    }
+    nav.scrolled {
+        background: rgba(255,255,255,0.95);
+    }
+    nav a {
+        margin: 0 15px;
+        text-decoration: none;
+        color: #555;
+        font-weight: 700;
+        text-transform: uppercase;
+        transition: color 0.3s;
+    }
+    nav a:hover {
+        color: #000;
+    }
+
+    .hero {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        padding: 0 20px;
+    }
+
+    .hero h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        color: #000;
+        text-transform: uppercase;
+        margin: 0;
+        line-height: 1.2;
+        position: relative;
+    }
+
+    .hero h1::before,
+    .hero h1::after {
+        content: attr(data-text);
+        position: absolute;
+        left: 0; 
+        right: 0;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
+    }
+    .hero h1::before {
+        text-shadow: -2px 0 #0ff;
+        animation: glitch 2s infinite;
+    }
+    .hero h1::after {
+        text-shadow: 2px 0 #f0f;
+        animation: glitch 2s infinite alternate;
+    }
+
+    @keyframes glitch {
+        0% { clip: rect(0, 9999px, 0, 0); }
+        5% { clip: rect(10px, 9999px, 40px, 0); }
+        10% { clip: rect(30px, 9999px, 20px, 0); }
+        15% { clip: rect(20px, 9999px, 60px, 0); }
+        20% { clip: rect(5px, 9999px, 15px, 0); }
+        25% { clip: rect(40px, 9999px, 80px, 0); }
+        30% { clip: rect(30px, 9999px, 10px, 0); }
+        35% { clip: rect(50px, 9999px, 50px, 0); }
+        40% { clip: rect(10px, 9999px, 40px, 0); }
+        45% { clip: rect(40px, 9999px, 10px, 0); }
+        50% { clip: rect(30px, 9999px, 60px, 0); }
+        55% { clip: rect(5px, 9999px, 20px, 0); }
+        60% { clip: rect(20px, 9999px, 70px, 0); }
+        65% { clip: rect(30px, 9999px, 40px, 0); }
+        70% { clip: rect(40px, 9999px, 30px, 0); }
+        75% { clip: rect(10px, 9999px, 10px, 0); }
+        80% { clip: rect(5px, 9999px, 60px, 0); }
+        85% { clip: rect(20px, 9999px, 20px, 0); }
+        90% { clip: rect(30px, 9999px, 50px, 0); }
+        95% { clip: rect(40px, 9999px, 40px, 0); }
+        100% { clip: rect(0, 9999px, 0, 0); }
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        margin: 20px 0 0;
+        color: #444;
+        max-width: 600px;
+    }
+
+    .hero a {
+        display: inline-block;
+        margin-top: 30px;
+        padding: 15px 30px;
+        background: #fff;
+        color: #00f;
+        font-weight: 700;
+        text-decoration: none;
+        text-transform: uppercase;
+        border: 2px solid #00f;
+        transition: background 0.3s, transform 0.3s;
+        border-radius: 5px;
+    }
+
+    .hero a:hover {
+        background: #00f;
+        color: #fff;
+        transform: translateY(-3px);
+    }
+
+    section {
+        padding: 100px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    h2 {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 50px;
+        position: relative;
+        color: #333;
+    }
+
+    h2::after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 2px;
+        background: #0ff;
+        margin: 20px auto 0;
+        opacity: 0.8;
+    }
+
+    .about {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 30px;
+    }
+    .about img {
+        flex: 1 1 300px;
+        max-width: 400px;
+        border-radius: 10px;
+    }
+    .about .content {
+        flex: 1 1 300px;
+    }
+    .about .content p {
+        line-height: 1.8;
+        font-size: 1.1rem;
+        color: #444;
+    }
+
+    .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+    }
+
+    .portfolio-item {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        position: relative;
+        box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        transition: box-shadow 0.3s;
+        cursor: pointer;
+        overflow: hidden;
+    }
+
+    .portfolio-item:hover {
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    .portfolio-item img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+        border-radius: 10px;
+        transition: transform 0.3s;
+    }
+
+    .portfolio-item:hover img {
+        transform: scale(1.03);
+    }
+
+    .portfolio-item h3 {
+        margin-top: 15px;
+        font-size: 1.3rem;
+        color: #00c;
+    }
+
+    .portfolio-item p {
+        color: #555;
+        margin: 10px 0;
+        line-height: 1.6;
+    }
+
+    .contact {
+        text-align: center;
+    }
+    .contact p {
+        color: #444;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        max-width: 500px;
+        margin: 0 auto 30px;
+    }
+    .contact a {
+        display: inline-block;
+        padding: 15px 30px;
+        background: #fff;
+        color: #f0f;
+        font-weight: 700;
+        text-decoration: none;
+        border: 2px solid #f0f;
+        margin-top: 20px;
+        transition: background 0.3s, transform 0.3s;
+        border-radius: 5px;
+    }
+    .contact a:hover {
+        background: #f0f;
+        color: #fff;
+        transform: translateY(-3px);
+    }
+
+    .modal-overlay {
+        position: fixed;
+        top:0; left:0; right:0; bottom:0;
+        background: rgba(0,0,0,0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+    }
+
+    .modal-overlay.active {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .modal-content {
+        background: #fff;
+        color: #333;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 90%;
+        max-height: 90%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+        align-items: center; 
+        justify-content: center;
+    }
+
+    .modal-header {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .modal-header button {
+        background: none;
+        border: none;
+        color: #333;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    .modal-body {
+    /* Existing properties */
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    position: relative;
+    box-sizing: border-box;
+
+    /* Ensure child elements scale down if too large */
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.modal-body img,
+.modal-body iframe,
+.modal-body video {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+
+    .gallery-controls {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        pointer-events: none;
+    }
+
+    .gallery-controls button {
+        background: rgba(255,255,255,0.8);
+        border: none;
+        pointer-events: all;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1.2rem;
+        transition: background 0.3s;
+    }
+
+    .gallery-controls button:hover {
+        background: rgba(255,255,255,1);
+    }
+
+    footer {
+        text-align: center;
+        padding: 50px 20px;
+        font-size: 0.9rem;
+        color: #777;
+        background: #fdfdfd;
+    }
+    footer a {
+        color: #00f;
+        text-decoration: none;
+    }
+</style>
+</head>
+<body>
+
+<nav>
+    <a href="#hero">Home</a>
+    <a href="#about">About</a>
+    <a href="#portfolio">Work</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<div class="hero" id="hero">
+    <h1 data-text="My Portfolio">My Portfolio</h1>
+    <p>Experience 10 years of growing up in the 2010s and 2020s as a creative and inventive guy.</p>
+    <p>Maximilian Randklev</p>
+    <a href="#about">Explore</a>
+</div>
+
+<section id="about">
+    <h2>About Me</h2>
+    <div class="about">
+        <img src="IMG_3610.jpg" alt="Your Photo">
+        <div class="content">
+            <p>Hello! I'm Max Randklev and welcome to my portfolio. In here is almost everything I have ever made. The first entry into this site comes from December of 2014 when I was just 8 years old. I have always loved to create. Through the years my process refiened and evolved to where it is today, through this portfolio you can see that evolution. The portfolio is sorted from most recent all the way back to that 2014 iphone background. Thanks for stopping by and I hope you enjoy your time looking at the history of me.</p>
+        </div>
+    </div>
+</section>
+
+<section id="portfolio">
+    <h2>My Work</h2>
+    <div class="portfolio-grid" id="portfolioGrid">
+    </div>
+</section>
+
+<footer>
+    © 2024 Maximilian Randklev. Built with curiosity and color. 
+    <br><a href="#hero">Back to top</a>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button id="modalClose">&times;</button>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="gallery-controls" id="galleryControls" style="display:none;">
+            <button id="galleryPrev">←</button>
+            <button id="galleryNext">→</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Fetch the new data structure
+    fetch('projects.json')
+        .then(response => response.json())
+        .then(data => {
+            buildPortfolio(data.portfolio);
+            attachModalTriggers('.portfolio-item');
+        })
+        .catch(error => console.error('Error loading projects:', error));
+
+        function buildPortfolio(portfolioData) {
+            const portfolioGrid = document.getElementById('portfolioGrid');
+            portfolioGrid.innerHTML = '';
+
+            // Sort by date (most recent first)
+            const sortedPortfolio = portfolioData.sort((a, b) => {
+                if (a.date && b.date) {
+                    return new Date(b.date) - new Date(a.date);
+                }
+                return 0; // Keep items without dates unsorted
+            });
+
+            // Create portfolio items
+            sortedPortfolio.forEach(item => {
+                const portfolioItem = document.createElement('div');
+                portfolioItem.classList.add('portfolio-item');
+                portfolioItem.setAttribute('data-type', item.type);
+                if (item.type === 'gallery') {
+                    portfolioItem.setAttribute('data-content', JSON.stringify(item.content));
+                } else if (item.type === 'video' || item.type === 'photo') {
+                    if (Array.isArray(item.content)) {
+                        portfolioItem.setAttribute('data-content', JSON.stringify(item.content));
+                        portfolioItem.setAttribute('data-type', 'gallery');
+                    } else {
+                        portfolioItem.setAttribute('data-content', item.content);
+                    }
+                }
+
+                portfolioItem.innerHTML = `
+                    <img src="${item.thumb}" alt="${item.title}">
+                    <h3>${item.title}</h3>
+                    <p>${item.description}</p>
+                `;
+                portfolioGrid.appendChild(portfolioItem);
+            });
+        }
+
+    window.addEventListener('scroll', () => {
+        const nav = document.querySelector('nav');
+        if(window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    });
+
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalClose = document.getElementById('modalClose');
+    const modalBody = modalOverlay.querySelector('.modal-body');
+    const galleryControls = document.getElementById('galleryControls');
+    const galleryPrev = document.getElementById('galleryPrev');
+    const galleryNext = document.getElementById('galleryNext');
+
+    let galleryItems = [];
+    let galleryIndex = 0;
+
+    function openModal(type, content) {
+        modalBody.innerHTML = ''; 
+        galleryControls.style.display = 'none';
+        galleryItems = [];
+        galleryIndex = 0;
+
+        if (type === 'photo') {
+            // content should be a single image
+            const img = document.createElement('img');
+            img.src = content;
+            modalBody.appendChild(img);
+        } else if (type === 'video') {
+            // content could be a youtube link or a local video file
+            if (content.includes('youtube.com/embed') || content.includes('youtu.be')) {
+                const iframe = document.createElement('iframe');
+                iframe.src = content;
+                iframe.width = "560";
+                iframe.height = "315";
+                iframe.setAttribute('frameborder', '0');
+                iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;');
+                iframe.allowFullscreen = true;
+                modalBody.appendChild(iframe);
+            } else {
+                // treat as local video file
+                const video = document.createElement('video');
+                video.src = content;
+                video.controls = true;
+                modalBody.appendChild(video);
+            }
+        } else if (type === 'gallery') {
+            if (typeof content === 'string') {
+                galleryItems = JSON.parse(content);
+            } else {
+                galleryItems = content;
+            }
+            showGalleryItem();
+            if (galleryItems.length > 1) {
+                galleryControls.style.display = 'flex';
+            }
+        }
+
+        modalOverlay.classList.add('active');
+    }
+
+    function showGalleryItem() {
+        modalBody.innerHTML = '';
+        if (galleryItems.length === 0) return;
+        const currentItem = galleryItems[galleryIndex];
+
+        // Check if video or image by extension
+        if (/\.(mp4|mov|webm|ogg)$/i.test(currentItem)) {
+            const video = document.createElement('video');
+            video.src = currentItem;
+            video.controls = true;
+            modalBody.appendChild(video);
+        } else if (currentItem.includes('youtube.com/embed') || currentItem.includes('youtu.be')) {
+            const iframe = document.createElement('iframe');
+            iframe.src = currentItem;
+            iframe.width = "560";
+            iframe.height = "315";
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;');
+            iframe.allowFullscreen = true;
+            modalBody.appendChild(iframe);
+        } else {
+            const img = document.createElement('img');
+            img.src = currentItem;
+            modalBody.appendChild(img);
+        }
+    }
+
+    galleryPrev.addEventListener('click', () => {
+        galleryIndex--;
+        if (galleryIndex < 0) galleryIndex = galleryItems.length - 1;
+        showGalleryItem();
+    });
+
+    galleryNext.addEventListener('click', () => {
+        galleryIndex++;
+        if (galleryIndex >= galleryItems.length) galleryIndex = 0;
+        showGalleryItem();
+    });
+
+    modalClose.addEventListener('click', () => {
+        modalOverlay.classList.remove('active');
+        modalBody.innerHTML = '';
+    });
+
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+            modalOverlay.classList.remove('active');
+            modalBody.innerHTML = '';
+        }
+    });
+
+    function attachModalTriggers(selector) {
+        document.querySelectorAll(selector).forEach(item => {
+            item.addEventListener('click', () => {
+                const type = item.getAttribute('data-type');
+                let content = item.getAttribute('data-content');
+                if (type === 'gallery') {
+                    content = JSON.parse(content);
+                }
+                openModal(type, content);
+            });
+        });
+    }
+</script>
+</body>
+</html>
