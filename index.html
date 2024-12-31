@@ -1,614 +1,1211 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="A high-tech, colorful portfolio page with a carousel timeline and modal content."/>
-<title>My High-Tech Portfolio</title>
-<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700&display=swap" rel="stylesheet">
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="A high-tech, colorful portfolio page with a carousel timeline and modal content."/>
+  <title>My High-Tech Portfolio</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700&display=swap" rel="stylesheet">
+  <style>
     html, body {
-        margin: 0; 
-        padding: 0; 
-        font-family: 'Roboto Mono', monospace;
-        background: #fdfdfd;
-        color: #333;
-        scroll-behavior: smooth;
-        overflow-x: hidden;
+      margin: 0; 
+      padding: 0; 
+      font-family: 'Roboto Mono', monospace;
+      background: #fdfdfd;
+      color: #333;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
     body::before {
-        content: "";
-        position: fixed;
-        top:0; left:0; right:0; bottom:0;
-        z-index: -1;
-        background: linear-gradient(120deg, #f0f4ff, #fff0f6, #f0fff4);
-        background-size: 600% 600%;
-        animation: pastelGradient 10s ease infinite;
+      content: "";
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      z-index: -1;
+      background: linear-gradient(120deg, #f0f4ff, #fff0f6, #f0fff4);
+      background-size: 600% 600%;
+      animation: pastelGradient 10s ease infinite;
     }
 
     @keyframes pastelGradient {
-        0%{background-position:0% 50%}
-        50%{background-position:100% 50%}
-        100%{background-position:0% 50%}
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
     }
 
     nav {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background: rgba(255,255,255,0.8);
-        display: flex;
-        justify-content: center;
-        padding: 20px 0;
-        backdrop-filter: blur(10px);
-        z-index: 999;
-        transition: background 0.3s ease;
-        border-bottom: 1px solid #ccc;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.8);
+      display: flex;
+      justify-content: center;
+      padding: 20px 0;
+      backdrop-filter: blur(10px);
+      z-index: 999;
+      transition: background 0.3s ease;
+      border-bottom: 1px solid #ccc;
     }
     nav.scrolled {
-        background: rgba(255,255,255,0.95);
+      background: rgba(255,255,255,0.95);
     }
     nav a {
-        margin: 0 15px;
-        text-decoration: none;
-        color: #555;
-        font-weight: 700;
-        text-transform: uppercase;
-        transition: color 0.3s;
+      margin: 0 15px;
+      text-decoration: none;
+      color: #555;
+      font-weight: 700;
+      text-transform: uppercase;
+      transition: color 0.3s;
     }
     nav a:hover {
-        color: #000;
+      color: #000;
     }
 
     .hero {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        padding: 0 20px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      padding: 0 20px;
     }
 
     .hero h1 {
-        font-size: 4rem;
-        font-weight: 700;
-        letter-spacing: 2px;
-        color: #000;
-        text-transform: uppercase;
-        margin: 0;
-        line-height: 1.2;
-        position: relative;
+      font-size: 4rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #000;
+      text-transform: uppercase;
+      margin: 0;
+      line-height: 1.2;
+      position: relative;
     }
-
     .hero h1::before,
     .hero h1::after {
-        content: attr(data-text);
-        position: absolute;
-        left: 0; 
-        right: 0;
-        overflow: hidden;
-        clip: rect(0,0,0,0);
+      content: attr(data-text);
+      position: absolute;
+      left: 0; 
+      right: 0;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
     }
     .hero h1::before {
-        text-shadow: -2px 0 #0ff;
-        animation: glitch 2s infinite;
+      text-shadow: -2px 0 #0ff;
+      animation: glitch 2s infinite;
     }
     .hero h1::after {
-        text-shadow: 2px 0 #f0f;
-        animation: glitch 2s infinite alternate;
+      text-shadow: 2px 0 #f0f;
+      animation: glitch 2s infinite alternate;
     }
 
     @keyframes glitch {
-        0% { clip: rect(0, 9999px, 0, 0); }
-        5% { clip: rect(10px, 9999px, 40px, 0); }
-        10% { clip: rect(30px, 9999px, 20px, 0); }
-        15% { clip: rect(20px, 9999px, 60px, 0); }
-        20% { clip: rect(5px, 9999px, 15px, 0); }
-        25% { clip: rect(40px, 9999px, 80px, 0); }
-        30% { clip: rect(30px, 9999px, 10px, 0); }
-        35% { clip: rect(50px, 9999px, 50px, 0); }
-        40% { clip: rect(10px, 9999px, 40px, 0); }
-        45% { clip: rect(40px, 9999px, 10px, 0); }
-        50% { clip: rect(30px, 9999px, 60px, 0); }
-        55% { clip: rect(5px, 9999px, 20px, 0); }
-        60% { clip: rect(20px, 9999px, 70px, 0); }
-        65% { clip: rect(30px, 9999px, 40px, 0); }
-        70% { clip: rect(40px, 9999px, 30px, 0); }
-        75% { clip: rect(10px, 9999px, 10px, 0); }
-        80% { clip: rect(5px, 9999px, 60px, 0); }
-        85% { clip: rect(20px, 9999px, 20px, 0); }
-        90% { clip: rect(30px, 9999px, 50px, 0); }
-        95% { clip: rect(40px, 9999px, 40px, 0); }
-        100% { clip: rect(0, 9999px, 0, 0); }
+      0% { clip: rect(0, 9999px, 0, 0); }
+      5% { clip: rect(10px, 9999px, 40px, 0); }
+      10% { clip: rect(30px, 9999px, 20px, 0); }
+      15% { clip: rect(20px, 9999px, 60px, 0); }
+      20% { clip: rect(5px, 9999px, 15px, 0); }
+      25% { clip: rect(40px, 9999px, 80px, 0); }
+      30% { clip: rect(30px, 9999px, 10px, 0); }
+      35% { clip: rect(50px, 9999px, 50px, 0); }
+      40% { clip: rect(10px, 9999px, 40px, 0); }
+      45% { clip: rect(40px, 9999px, 10px, 0); }
+      50% { clip: rect(30px, 9999px, 60px, 0); }
+      55% { clip: rect(5px, 9999px, 20px, 0); }
+      60% { clip: rect(20px, 9999px, 70px, 0); }
+      65% { clip: rect(30px, 9999px, 40px, 0); }
+      70% { clip: rect(40px, 9999px, 30px, 0); }
+      75% { clip: rect(10px, 9999px, 10px, 0); }
+      80% { clip: rect(5px, 9999px, 60px, 0); }
+      85% { clip: rect(20px, 9999px, 20px, 0); }
+      90% { clip: rect(30px, 9999px, 50px, 0); }
+      95% { clip: rect(40px, 9999px, 40px, 0); }
+      100% { clip: rect(0, 9999px, 0, 0); }
     }
 
     .hero p {
-        font-size: 1.2rem;
-        margin: 20px 0 0;
-        color: #444;
-        max-width: 600px;
+      font-size: 1.2rem;
+      margin: 20px 0 0;
+      color: #444;
+      max-width: 600px;
     }
 
     .hero a {
-        display: inline-block;
-        margin-top: 30px;
-        padding: 15px 30px;
-        background: #fff;
-        color: #00f;
-        font-weight: 700;
-        text-decoration: none;
-        text-transform: uppercase;
-        border: 2px solid #00f;
-        transition: background 0.3s, transform 0.3s;
-        border-radius: 5px;
+      display: inline-block;
+      margin-top: 30px;
+      padding: 15px 30px;
+      background: #fff;
+      color: #00f;
+      font-weight: 700;
+      text-decoration: none;
+      text-transform: uppercase;
+      border: 2px solid #00f;
+      transition: background 0.3s, transform 0.3s;
+      border-radius: 5px;
     }
-
     .hero a:hover {
-        background: #00f;
-        color: #fff;
-        transform: translateY(-3px);
+      background: #00f;
+      color: #fff;
+      transform: translateY(-3px);
     }
 
     section {
-        padding: 100px 20px;
-        max-width: 1200px;
-        margin: 0 auto;
+      padding: 100px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     h2 {
-        font-size: 2.5rem;
-        text-align: center;
-        margin-bottom: 50px;
-        position: relative;
-        color: #333;
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+      color: #333;
     }
-
     h2::after {
-        content: "";
-        display: block;
-        width: 80px;
-        height: 2px;
-        background: #0ff;
-        margin: 20px auto 0;
-        opacity: 0.8;
+      content: "";
+      display: block;
+      width: 80px;
+      height: 2px;
+      background: #0ff;
+      margin: 20px auto 0;
+      opacity: 0.8;
     }
 
     .about {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 30px;
     }
     .about img {
-        flex: 1 1 300px;
-        max-width: 400px;
-        border-radius: 10px;
+      flex: 1 1 300px;
+      max-width: 400px;
+      border-radius: 10px;
     }
     .about .content {
-        flex: 1 1 300px;
+      flex: 1 1 300px;
     }
     .about .content p {
-        line-height: 1.8;
-        font-size: 1.1rem;
-        color: #444;
+      line-height: 1.8;
+      font-size: 1.1rem;
+      color: #444;
     }
 
     .portfolio-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
     }
 
     .portfolio-item {
-        background: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        position: relative;
-        box-shadow: 0 0 10px rgba(0,0,0,0.05);
-        transition: box-shadow 0.3s;
-        cursor: pointer;
-        overflow: hidden;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      position: relative;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      transition: box-shadow 0.3s;
+      cursor: pointer;
+      overflow: hidden;
     }
-
     .portfolio-item:hover {
-        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
     }
-
     .portfolio-item img {
-        display: block;
-        max-width: 100%;
-        height: auto;
-        object-fit: contain;
-        border-radius: 10px;
-        transition: transform 0.3s;
+      display: block;
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
+      border-radius: 10px;
+      transition: transform 0.3s;
     }
-
     .portfolio-item:hover img {
-        transform: scale(1.03);
+      transform: scale(1.03);
     }
-
     .portfolio-item h3 {
-        margin-top: 15px;
-        font-size: 1.3rem;
-        color: #00c;
+      margin-top: 15px;
+      font-size: 1.3rem;
+      color: #00c;
     }
-
     .portfolio-item p {
-        color: #555;
-        margin: 10px 0;
-        line-height: 1.6;
-    }
-
-    .contact {
-        text-align: center;
-    }
-    .contact p {
-        color: #444;
-        font-size: 1.1rem;
-        line-height: 1.8;
-        max-width: 500px;
-        margin: 0 auto 30px;
-    }
-    .contact a {
-        display: inline-block;
-        padding: 15px 30px;
-        background: #fff;
-        color: #f0f;
-        font-weight: 700;
-        text-decoration: none;
-        border: 2px solid #f0f;
-        margin-top: 20px;
-        transition: background 0.3s, transform 0.3s;
-        border-radius: 5px;
-    }
-    .contact a:hover {
-        background: #f0f;
-        color: #fff;
-        transform: translateY(-3px);
+      color: #555;
+      margin: 10px 0;
+      line-height: 1.6;
     }
 
     .modal-overlay {
-        position: fixed;
-        top:0; left:0; right:0; bottom:0;
-        background: rgba(0,0,0,0.7);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 10000;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.3s;
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
     }
-
     .modal-overlay.active {
-        opacity: 1;
-        pointer-events: all;
+      opacity: 1;
+      pointer-events: all;
     }
-
     .modal-content {
-        background: #fff;
-        color: #333;
-        padding: 20px;
-        border-radius: 8px;
-        max-width: 90%;
-        max-height: 90%;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        overflow: auto;
-        align-items: center; 
-        justify-content: center;
+      background: #fff;
+      color: #333;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 90%;
+      max-height: 90%;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      align-items: center; 
+      justify-content: center;
     }
-
     .modal-header {
-        width: 100%;
-        display: flex;
-        justify-content: flex-end;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
     }
-
     .modal-header button {
-        background: none;
-        border: none;
-        color: #333;
-        font-size: 1.5rem;
-        cursor: pointer;
+      background: none;
+      border: none;
+      color: #333;
+      font-size: 1.5rem;
+      cursor: pointer;
     }
-
     .modal-body {
-    /* Existing properties */
-    flex: 1;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: visible;
-    position: relative;
-    box-sizing: border-box;
-
-    /* Ensure child elements scale down if too large */
-    max-width: 90%;
-    max-height: 90%;
-}
-
-.modal-body img,
-.modal-body iframe,
-.modal-body video {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    display: block;
-}
-
+      flex: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+      position: relative;
+      box-sizing: border-box;
+      max-width: 90%;
+      max-height: 90%;
+    }
+    .modal-body img,
+    .modal-body iframe,
+    .modal-body video {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+    }
 
     .gallery-controls {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        pointer-events: none;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
     }
-
     .gallery-controls button {
-        background: rgba(255,255,255,0.8);
-        border: none;
-        pointer-events: all;
-        padding: 10px;
-        border-radius: 50%;
-        cursor: pointer;
-        font-weight: bold;
-        font-size: 1.2rem;
-        transition: background 0.3s;
+      background: rgba(255,255,255,0.8);
+      border: none;
+      pointer-events: all;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.2rem;
+      transition: background 0.3s;
     }
-
     .gallery-controls button:hover {
-        background: rgba(255,255,255,1);
+      background: rgba(255,255,255,1);
     }
 
     footer {
-        text-align: center;
-        padding: 50px 20px;
-        font-size: 0.9rem;
-        color: #777;
-        background: #fdfdfd;
+      text-align: center;
+      padding: 50px 20px;
+      font-size: 0.9rem;
+      color: #777;
+      background: #fdfdfd;
     }
     footer a {
-        color: #00f;
-        text-decoration: none;
+      color: #00f;
+      text-decoration: none;
     }
-</style>
+  </style>
 </head>
 <body>
 
 <nav>
-    <a href="#hero">Home</a>
-    <a href="#about">About</a>
-    <a href="#portfolio">Work</a>
-    <a href="#contact">Contact</a>
+  <a href="#hero">Home</a>
+  <a href="#about">About</a>
+  <a href="#portfolio">Work</a>
 </nav>
 
 <div class="hero" id="hero">
-    <h1 data-text="My Portfolio">My Portfolio</h1>
-    <p>Experience 10 years of growing up in the 2010s and 2020s as a creative and inventive guy.</p>
-    <p>Maximilian Randklev</p>
-    <a href="#about">Explore</a>
+  <h1 data-text="My Portfolio">My Portfolio</h1>
+  <p>Experience 10 years of growing up in the 2010s and 2020s as a creative and inventive guy.</p>
+  <p>By: <strong>Maximilian Randklev</strong></p>
+  <a href="#about">Explore</a>
 </div>
 
 <section id="about">
-    <h2>About Me</h2>
-    <div class="about">
-        <img src="IMG_3610.jpg" alt="Your Photo">
-        <div class="content">
-            <p>Hello! I'm Max Randklev and welcome to my portfolio. In here is almost everything I have ever made. The first entry into this site comes from December of 2014 when I was just 8 years old. I have always loved to create. Through the years my process refiened and evolved to where it is today, through this portfolio you can see that evolution. The portfolio is sorted from most recent all the way back to that 2014 iphone background. Thanks for stopping by and I hope you enjoy your time looking at the history of me.</p>
-        </div>
+  <h2>About Me</h2>
+  <div class="about">
+    <!-- Replace this with your actual photo if desired -->
+    <img src="IMG_3610.jpg" alt="Your Photo">
+    <div class="content">
+      <p>
+        Hello! I'm Max Randklev and welcome to my portfolio. In here is almost everything I have ever made.
+        The first entry into this site comes from December of 2014 when I was just 8 years old. 
+        I have always loved to create. Through the years my process refined and evolved to where it is today. 
+        Through this portfolio you can see that evolution. The portfolio is sorted from most recent 
+        all the way back to that 2014 iPhone background. Thanks for stopping by 
+        and I hope you enjoy your time looking at the history of me.
+      </p>
     </div>
+  </div>
 </section>
 
 <section id="portfolio">
-    <h2>My Work</h2>
-    <div class="portfolio-grid" id="portfolioGrid">
-    </div>
+  <h2>My Work</h2>
+  <div class="portfolio-grid" id="portfolioGrid">
+
+    <div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1njxP8HkWITPaKUdtsf_OuGqSAJb9a_Eo","https://drive.google.com/uc?export=view&id=1LPseQ3j1gfhMaSxCnDU1Z7owB8tZd66u","https://drive.google.com/uc?export=view&id=1X0qGKV5L8S9hxzQ3CCoc_hJkGojVqNUK","https://drive.google.com/uc?export=view&id=1HwMaA_ZXgj29r082_uWL8uOM0qYjaSrA"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1njxP8HkWITPaKUdtsf_OuGqSAJb9a_Eo" alt="MW19 Thumbnails">
+ <h3>MW19 Thumbnails</h3>
+ <p>A set of thumbnail for a short lived channel where I made comentary videos while playing MW2019.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=15z5Gwz2iyKgbnt6XwV7A2URXIqUyeBth'>
+ <img src="https://drive.google.com/uc?export=view&id=14BdNCytX3bfwjMmC7NI3DTMFCR0FmPMe" alt="My first tiktok to get 10,000 views">
+ <h3>My first tiktok to get 10,000 views</h3>
+ <p>Through some pretty metiocre editing and some base level story telling, I was able to get my first 10k tiktok!</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=1_vCc_8Eiv8Sf-Qy9ECKJ_RPT7RTc2YEE'>
+ <img src="https://drive.google.com/uc?export=view&id=1kim9c5gWezFnnL-h4bZ1O6sBNFI1D7pr" alt="First time messing with color correction">
+ <h3>First time messing with color correction</h3>
+ <p>In my first ever attempt at messing with colors I removed all the colors but orange. I am pretty sure this was inspired by a TikTok I saw at the time.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=18Bsdrjm8vHSYDyZWtlKoiKTWM4NqkRh-'>
+ <img src="https://drive.google.com/uc?export=view&id=1Hc1szSDzUXdxDYSnp8MolBXqcBpipn52" alt="An early speed ramping edit in Apex Legends">
+ <h3>An early speed ramping edit in Apex Legends</h3>
+ <p>I'm not sure that this is the first time I did speed ramping but it is definitely early.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=16khzNv-w2aZFXqfEgRJGnPjGyVqvwYqI'>
+ <img src="https://drive.google.com/uc?export=view&id=1sPluswm2DxW7JC9rTj7l3JNG2WNXv3Nq" alt="Mac Miller COD cold war edit">
+ <h3>Mac Miller COD cold war edit</h3>
+ <p>One of the first times I did cinematics inside an edit. I really like this edit to this day.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=16wopUMHnosysyfMHs4FkgeFXSILWeaEL'>
+ <img src="https://drive.google.com/uc?export=view&id=1ZYmDajgiKhzZEtkvItCeoLNmR1rAh9rC" alt="This video got 200,000 views. lmao">
+ <h3>This video got 200,000 views. lmao</h3>
+ <p>This video got 200k views. To this day I do not know why. Yes, this is satire.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=16wopUMHnosysyfMHs4FkgeFXSILWeaEL'>
+ <img src="https://drive.google.com/uc?export=view&id=10PqagrhA5qXN6m-AA7xvyRHpJG_03K8K" alt="COD Cold War edit">
+ <h3>COD Cold War edit</h3>
+ <p>I remember that when I made this I thought that I had really made a banger. Hind sight really is 20/20.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1gEw3CtQ3hvdNHRQw_97dZSNM3YeJyojj","https://drive.google.com/uc?export=view&id=173r4lu7Y5OSVYj2ZuX4sb9aJP_nuFhvT","https://drive.google.com/uc?export=view&id=1ba7V83WEgm0wzN1-hBSA5BnEsKaFkiO1","https://drive.google.com/uc?export=view&id=1OrjAOdeAKucpdTv4Bl5JpN804_6DN9Lo","https://drive.google.com/uc?export=view&id=1w-nFuCDEaJf5bdzck005v4Rpv0gU8gGn"]'>
+ <img src="https://drive.google.com/uc?export=view&id=173r4lu7Y5OSVYj2ZuX4sb9aJP_nuFhvT" alt="Alex 'Poaton' Pereira Designs">
+ <h3>Alex 'Poaton' Pereira Designs</h3>
+ <p>I like these a lot and they preceeded an era of many UFC designs.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=1GHgJFVzIS30iLkVaBL-NinTLuyLMwJZJ'>
+ <img src="https://drive.google.com/uc?export=view&id=1QNJgZtA3VurYwOyFuX_ExhdvX6SZhlgl" alt="Jon 'Bones' Jones edit">
+ <h3>Jon 'Bones' Jones edit</h3>
+ <p>This is the first edit I made with my new mac right after christmas!</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1M17iKmsXWCtmLReagSNZgh8D8Y2PqYQ9","https://drive.google.com/uc?export=view&id=1Ob_UjLzVrjM5mj0KX9kqKPBgRHB_NG-9","https://drive.google.com/uc?export=view&id=1WrV9VGMZ3lY2pqJwjbO9LuMF7qdAXUTg","https://drive.google.com/uc?export=view&id=160icyYzsMz5n5hgIBeIvshckgC3T_xo5","https://drive.google.com/uc?export=view&id=1k83m2sFS3cJ5uqdhx_6EroQ9sQofxIBv","https://drive.google.com/uc?export=view&id=1yEaTl-uaWtzvDkqXaEZNxRgK8jaxsH07","https://drive.google.com/uc?export=view&id=13FhZmWkT2vH0gkiiz1tMGR9fGGoUIO7R","https://drive.google.com/uc?export=view&id=1F0A415BMvvLjMGQ-ougPGTxG9RJGLmbp"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1M17iKmsXWCtmLReagSNZgh8D8Y2PqYQ9" alt="Butcher, From the Boys, Designs">
+ <h3>Butcher, From the Boys, Designs</h3>
+ <p>I really love these designs. They are just so cool. Butcher is a just a baller.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=147GOYlty6Uyb-aDycaQgw7CxmJ0EsUXh'>
+ <img src="https://drive.google.com/uc?export=view&id=1H1aIiurgMaRWhob0mGW37uuDBIIr6npg" alt="I Ate and Burned off a Cake in 5 Hours!">
+ <h3>I Ate and Burned off a Cake in 5 Hours!</h3>
+ <p>Probably one of my best shorts ever. However, it falls short with the large amount of timelapses.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1kZzzf9mSBiCYA7QPuasVJFJlKzbuTU2q","https://drive.google.com/uc?export=view&id=1LWxh9f7vDSPwEKpeYrsnHJlhnMWr0NEn","https://drive.google.com/uc?export=view&id=1xNxjektgI622X3Yhrftb5rMcjICCS3aD","https://drive.google.com/uc?export=view&id=1wiNGPkBVXv2oRf8sTIHmzoN0sXw3bNZt","https://drive.google.com/uc?export=view&id=1Dgfb01MEp6ki-NsOcDq_QU8AbBoyfP-Z","https://drive.google.com/uc?export=view&id=1ad-CPMcLSEET8jTJxupRSzzhK2ep2zO0","https://drive.google.com/uc?export=view&id=1LzQ2raGZ8TxdrhCO1o7L67wlMrCPMu0l","https://drive.google.com/uc?export=view&id=1nmUd2T4mjcEGS_5kQnWYbvLUvvEQSuNK","https://drive.google.com/uc?export=view&id=1BsLvTGfVV35dywndwfdKEvUm8ZCr_dKf","https://drive.google.com/uc?export=view&id=1xQTIA6ZVzmOre-ny_QQl_nbBSwMl00bk","https://drive.google.com/uc?export=view&id=1y1shQb9Hp5lsWaePWuK5F-_qPoQXk4A5"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1y1shQb9Hp5lsWaePWuK5F-_qPoQXk4A5" alt="MVP Max">
+ <h3>MVP Max</h3>
+ <p>The MVP Max buisness was my first time stepping into the real buisness world. I did predictive modeling for sports betting, and advertised via twitter. It was a great experiment in pushing my stress tolerance.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1tSkvowFjVa0HaCzKf4R3Li6tSJtvnSmm","https://drive.google.com/uc?export=view&id=1XT2SpphnUE7IkXi11h05sGJJJyaZPy96"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1tSkvowFjVa0HaCzKf4R3Li6tSJtvnSmm" alt="Connor Evolution">
+ <h3>Connor Evolution</h3>
+ <p>My first UFC design. I really like it, it was hard to make any designs that topped it.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="photo"
+    data-content='https://drive.google.com/uc?export=view&id=1MQIq_buV-Zj46635izkpsdwFe5jEY3Km'>
+ <img src="https://drive.google.com/uc?export=view&id=1MQIq_buV-Zj46635izkpsdwFe5jEY3Km" alt="MW22 Thumbnail">
+ <h3>MW22 Thumbnail</h3>
+ <p>This was a fun video to film, but the thumnbnail didn't get much love.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="photo"
+    data-content='https://drive.google.com/uc?export=view&id=1nbWUTg0FA5J5JkPhNStMUA1U1WqaBw8M'>
+ <img src="https://drive.google.com/uc?export=view&id=1nbWUTg0FA5J5JkPhNStMUA1U1WqaBw8M" alt="Can't Cry Shirt">
+ <h3>Can't Cry Shirt</h3>
+ <p>While its reletively low effort I love this shirt. The quote is just such a good quote.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1SE9mE2AAabYAFx_wlh7Uwin6XQa6Is5o","https://drive.google.com/uc?export=view&id=1G0lk62zufD-gpbfSmCiKaLL6H7HjzrCb"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1SE9mE2AAabYAFx_wlh7Uwin6XQa6Is5o" alt="Early Photo Editing">
+ <h3>Early Photo Editing</h3>
+ <p>I thought these were so cool. In 2018 this was definetily cooler than it is now.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=1APyvwhNIsWYIRKW7OO3bKI5jzatQnupK'>
+ <img src="https://drive.google.com/uc?export=view&id=1IAkl1_O3LhE6Fa9cT4LrYtT_x0IsSCph" alt="The hardest thing I have ever done.">
+ <h3>The hardest thing I have ever done.</h3>
+ <p>I have never done anything thats remotely as hard as this was. I really wish I made the video better because there was a great story to be told and I didn't tell it to the best of my ability.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=1ihJswAZDtBnT0mKwFBQWlsyY20c33V_O'>
+ <img src="https://drive.google.com/uc?export=view&id=12SG6c35uyeyliLL1_slnkUohBCaNLYVk" alt="Bull Man, Apex Legends">
+ <h3>Bull Man, Apex Legends</h3>
+ <p>Took very little time and I think its still funny to this day. Great video overall!</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1-YhqvtzHWNX-HY0yJcjcze95a7X89tqU","https://drive.google.com/uc?export=view&id=1VMTxEVGEmWG3Tzok3Uisn3MRAswfwUd0"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1-YhqvtzHWNX-HY0yJcjcze95a7X89tqU" alt="Sports Car Render Test">
+ <h3>Sports Car Render Test</h3>
+ <p>It was just a quick test, but I really liked how it turned out, hence the phone background.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1EZo-uyiP-97o0wN2tdgpDmKs1Bhjzf_f","https://drive.google.com/uc?export=view&id=1RkPiJaHdb8_Q5uJNvQUKuI0HUGbInHd4","https://drive.google.com/uc?export=view&id=1qcZ7QD_KoX6hE3aXNetpkVQ00Mcw4XhK"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1mEfiDufnzcIP3L3drQSwJxQb98jKggtm" alt="TikToks with friends in middle school">
+ <h3>TikToks with friends in middle school</h3>
+ <p>This is so funny to me. Just kids being kids. These projects were pivitol to the development of my skills.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1rPa4CZrj95ckwVyCaCcFYfRucInNgA3N","https://drive.google.com/uc?export=view&id=1njegGEp_5q8n6z2bkWpxxsCA4OylwMR1","https://drive.google.com/uc?export=view&id=1QM_JgHo2yFKoQYmlNReb6zEbz4AXmvgi","https://drive.google.com/uc?export=view&id=1yzOOfxZLw6k8FF2Bqs-wkIakt5QWP7NI","https://drive.google.com/uc?export=view&id=1zhs1xrfR9NjABiagrWpJAEcaJaJsb7P8","https://drive.google.com/uc?export=view&id=1XPGeXhhQdU_eGUcUzUOVL-ngEdnFI0oq","https://drive.google.com/uc?export=view&id=100hNeOFjv7COWXY3DwFCfIv2jVtB58oE","https://drive.google.com/uc?export=view&id=1YDxBCpo7Ag7i-tFGRWrsxTAjDe-3qBKV","https://drive.google.com/uc?export=view&id=105Y-IGBap73x2d3q4zvtS5Ty5W7OrIRI","https://drive.google.com/uc?export=view&id=11Tg4n0oCx8GrddN1Sf3ZWx0hWRzOonXu","https://drive.google.com/uc?export=view&id=1jW4qPInMaT4q16hhSl7ztewzb5nAKUBK","https://drive.google.com/uc?export=view&id=1TczOQ8Ty44fBTp-7Uy6RhkGPPC7o0HdC","https://drive.google.com/uc?export=view&id=1XWqdAq8xFPKoyblRpcV3X3ClXM4Y__ju","https://drive.google.com/uc?export=view&id=1i7QKY8VRFBQu0aWWbNDBuBBQRmwRa1GR","https://drive.google.com/uc?export=view&id=1tPDH08EOuEuaKZUmPEmDLG9z92ON5rtn"]'>
+ <img src="https://drive.google.com/uc?export=view&id=105Y-IGBap73x2d3q4zvtS5Ty5W7OrIRI" alt="Ghost Cartoon 3D model">
+ <h3>Ghost Cartoon 3D model</h3>
+ <p>I loved the Ghost character in MW19 and MW22, so I created him in 3d. I wasn't good enough to do realism so I went cartoony. I think it came out great!</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="photo"
+    data-content='https://drive.google.com/uc?export=view&id=1_i1gUOJI22Cj2waTnD3NFnTs75aFgXf3'>
+ <img src="https://drive.google.com/uc?export=view&id=1_i1gUOJI22Cj2waTnD3NFnTs75aFgXf3" alt="Greatness, Eliud Kipchoge">
+ <h3>Greatness, Eliud Kipchoge</h3>
+ <p>I have so much respect for Eliud Kipchoge, he is a great dude, hence why I made this image.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=1B-Joira3ReT46Z_X-eEM4tFntblpGUVq'>
+ <img src="https://drive.google.com/uc?export=view&id=1pPQnUzyQtUXl7iYUsI1-uDHMzJf2uYhJ" alt="My first ever youtube outro">
+ <h3>My first ever youtube outro</h3>
+ <p>This might be the greatest youtube outro of all time.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='["https://drive.google.com/uc?export=view&id=1tqTK7lBWaJsRQ-r_JeFoatQt5KwwC7XA","https://drive.google.com/uc?export=view&id=1dadntoALidkZlcvszpyPHteAVbHSW5_m","https://drive.google.com/uc?export=view&id=1Ah4zMs07Z6hSg2jNeh7AXMkheLEOkkiC","https://drive.google.com/uc?export=view&id=1mMEXq-jRo3BXCA0eCyw2ZX5P-AKKKHFe","https://drive.google.com/uc?export=view&id=1pcaTkYLBIiTeu4zK3XMIW3rJSkdNfC6-"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1tqTK7lBWaJsRQ-r_JeFoatQt5KwwC7XA" alt="Fortnite Photography">
+ <h3>Fortnite Photography</h3>
+ <p>Most all of my fortntie photography pictures ended up being iphone backgrounds.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="photo"
+    data-content='https://drive.google.com/uc?export=view&id=1FYEYd3mCq6qn2kmv8Xut3lfBZsjoB8W6'>
+ <img src="https://drive.google.com/uc?export=view&id=1FYEYd3mCq6qn2kmv8Xut3lfBZsjoB8W6" alt="Standing in the River">
+ <h3>Standing in the River</h3>
+ <p>One of my favorite photos of myself. It was taken by my friend, Portman Allen, but I edited it.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1zcZvw0CwdG_toqNklvlfPpDb6S-vqcn9","https://drive.google.com/uc?export=view&id=1lIk7Osr-pDuAsXdbt4mRH5H1ed87SVpn"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1zcZvw0CwdG_toqNklvlfPpDb6S-vqcn9" alt="Building my first ever computer">
+ <h3>Building my first ever computer</h3>
+ <p>This computer sucked so bad. It would get really hot then crash beacuse of the heat, lol. I gave it to brady where it gained the moniker 'The Rust Bucket'</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=1sN--t5WVRMoVWOzBbMv1lOci-nh36vUD'>
+ <img src="https://drive.google.com/uc?export=view&id=1awvXT6ZAJly2_x0sHjQlw4mDZ86qpVip" alt="One of my first Fortnite edits">
+ <h3>One of my first Fortnite edits</h3>
+ <p>This edit sucked and more than that, why is it so loud, lmao.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="photo"
+    data-content='https://drive.google.com/uc?export=view&id=1LNXYJ0Pqrvcw1AhWvhMoxz-_NVUW7URx'>
+ <img src="https://drive.google.com/uc?export=view&id=1LNXYJ0Pqrvcw1AhWvhMoxz-_NVUW7URx" alt="First picture with my first camera">
+ <h3>First picture with my first camera</h3>
+ <p>For a first picture, I think that this came out great!</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1tomzX0GHHstnifLJSjLBovHTq9i-FfD3","https://drive.google.com/uc?export=view&id=1CT_BT4p37fSfibGJ7TGIgu4zS4cx7RX0","https://drive.google.com/uc?export=view&id=11lHCNSJPTvs3qmRhBdG0PNy-Tk1PdUbB"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1CT_BT4p37fSfibGJ7TGIgu4zS4cx7RX0" alt="Graphics for my TSS Fortnite Clan">
+ <h3>Graphics for my TSS Fortnite Clan</h3>
+ <p>TSS, Team Solo Shooter, was a gaming clan/club that I made because thats what people were doing at the time. It only ever had 2 members.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=10ODMpgJrGk68CqT-bRWN7LvaD__P5dEe","https://drive.google.com/uc?export=view&id=1Sx3foFTCprjOon9Ns7SgDGK_1GpKipBK","https://drive.google.com/uc?export=view&id=1uWv8KfQSn3jdzfv_AR3oitsCTFWSxY7q","https://drive.google.com/uc?export=view&id=1QQvshEpBRiniF9t6QAiKQCL_Qu5MmOoI"]'>
+ <img src="https://drive.google.com/uc?export=view&id=10ODMpgJrGk68CqT-bRWN7LvaD__P5dEe" alt="Underwater Photoshoot">
+ <h3>Underwater Photoshoot</h3>
+ <p>Did this for a video about taking the best picture I could. That was a fun video to film, but it ended up sucking in the end. The thumbnail for the video is also in there.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="photo"
+    data-content='https://i.imgur.com/LNXllCF.jpeg'>
+ <img src="https://i.imgur.com/LNXllCF.jpeg" alt="First Ever Design">
+ <h3>First Ever Design</h3>
+ <p>This is the actual first ever thing I designed and made. What a good first go, lol.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="photo"
+    data-content='https://drive.google.com/uc?export=view&id=1TyRBT8g3U7_Kb0ERrGVN1F82Ey0d0w-s'>
+ <img src="https://drive.google.com/uc?export=view&id=1TyRBT8g3U7_Kb0ERrGVN1F82Ey0d0w-s" alt="Max's Ultimate Cleaning">
+ <h3>Max's Ultimate Cleaning</h3>
+ <p>A buiness I ran over the summer where I cleaned up patios in my neighborhood and did other small physical labour jobs.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=14IeJyrpTH59RGdVsdwFCnt95nM52UtSi","https://drive.google.com/uc?export=view&id=1rebgOHxc1hWqK8rBUiiSERyR-vDwhADt","https://drive.google.com/uc?export=view&id=1jQ2SUXQvKiEEJmDeoBPQ_7RFL8DlwGLJ","https://drive.google.com/uc?export=view&id=16HAiRVMAwhb81-eQKr0b8Il1_SgomJiL"]'>
+ <img src="https://drive.google.com/uc?export=view&id=14IeJyrpTH59RGdVsdwFCnt95nM52UtSi" alt="Trip abroad photography">
+ <h3>Trip abroad photography</h3>
+ <p>More attemps at doing photography, this time I took these photos in my first ever trip abroad.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1JBD_veh8N8yElJuznmE7d3S4_oMGNZj1","https://drive.google.com/uc?export=view&id=17H0d9KVctdAwkhoOIOCahlsmXwVF47jh"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1JBD_veh8N8yElJuznmE7d3S4_oMGNZj1" alt="Middle school photography">
+ <h3>Middle school photography</h3>
+ <p>More attemps at doing photography, this time I took these photos in my first year at middle school.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1f3KsIIq23ujoIgK7YDWr2Wu5UMLCAW3w","https://drive.google.com/uc?export=view&id=1TaU5ifaoQJANz8Y5MAJiuB-Z_-gzx4_y","https://drive.google.com/uc?export=view&id=1eq1tN5e-xcEpiBYGcvMTNvEvPunHr3C8","https://drive.google.com/uc?export=view&id=1bf_PfJqBEr-nOEL-gQebzI1HhnaOBO0H","https://drive.google.com/uc?export=view&id=1_d2OYJwD5IELoYByKsJqYJhhDHse4JRd","https://drive.google.com/uc?export=view&id=185ZWt4u3qa1NTO6LpUnyIwrckVg9pAuc"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1ZFoLpMxjWIZUaZmd_aCfxDqgB5pLe43a" alt="Slow-mo flip videos">
+ <h3>Slow-mo flip videos</h3>
+ <p>I loved doing flips. I would post these little videos on instagram.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="photo"
+    data-content='https://drive.google.com/uc?export=view&id=1aKdK8BKTyXH8s-7LVE5ilKemQXyEq-7P'>
+ <img src="https://drive.google.com/uc?export=view&id=1aKdK8BKTyXH8s-7LVE5ilKemQXyEq-7P" alt="The worst photo ever">
+ <h3>The worst photo ever</h3>
+ <p>The poses, the editing, everything. Its all horrible.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="photo"
+    data-content='https://drive.google.com/uc?export=view&id=1oCowCMJq87vPomvWTfucqDT3ZZkVpHQR'>
+ <img src="https://drive.google.com/uc?export=view&id=1oCowCMJq87vPomvWTfucqDT3ZZkVpHQR" alt="My favorite photo ever">
+ <h3>My favorite photo ever</h3>
+ <p>Took this on a hike to the 'bamboo forest' with portman on one of the rainest days of the year. Never had a more fun hike.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1Yyug_RHH1DYDRWRPTwshTq1pGP34qTLs","https://drive.google.com/uc?export=view&id=16yggBN6LRjTkM6oiDzMKJpHcSZQTMaOm","https://drive.google.com/uc?export=view&id=1Zy4749QEc9imzPBnyVL3ye5_j2pQ1nTg","https://drive.google.com/uc?export=view&id=1g9Xu3BPc6oujSDTO0gIGGTKzVfBrDNfR"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1Yyug_RHH1DYDRWRPTwshTq1pGP34qTLs" alt="Thumbnails for MaxRan1, my fitness channel">
+ <h3>Thumbnails for MaxRan1, my fitness channel</h3>
+ <p>I loved this channel and am still proud of what I made there. I could do better but at the time it was my best.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="photo"
+    data-content='https://drive.google.com/uc?export=view&id=1eiV7xcfHEfwFscJP_32jhIzBnggJslOX'>
+ <img src="https://drive.google.com/uc?export=view&id=1eiV7xcfHEfwFscJP_32jhIzBnggJslOX" alt="Money Heist video thumbnail">
+ <h3>Money Heist video thumbnail</h3>
+ <p>I loved the concept for this video and it came out like shit. Much better idea in my head than in reality.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1YlXLPitLg7M5usx_vo29phdy_dpRF-0m","https://drive.google.com/uc?export=view&id=1T28LiF-pQscWalK32U8T2WsN-0NUg8OJ","https://drive.google.com/uc?export=view&id=1RhNF6--PvBDF4W9hPaVMCeL9zN-otdIs","https://drive.google.com/uc?export=view&id=1ttvMNAMYcJOhr6f51t35OCMx9nSJ9fZb","https://drive.google.com/uc?export=view&id=1Nq38NfFw2LkPirg3x9CozpOfcpJl4YVN","https://drive.google.com/uc?export=view&id=1Ph8ouy86HH4DQv3HLLBjOmhDhrM-mKwM"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1T28LiF-pQscWalK32U8T2WsN-0NUg8OJ" alt="Horrible masking era">
+ <h3>Horrible masking era</h3>
+ <p>Made a lot of pictures like this. They all sucked, lmao.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="photo"
+    data-content='https://drive.google.com/uc?export=view&id=1KQ6COxhpRp_yZDtetpVGnpmPqul1tG91'>
+ <img src="https://drive.google.com/uc?export=view&id=1KQ6COxhpRp_yZDtetpVGnpmPqul1tG91" alt="The Top P">
+ <h3>The Top P</h3>
+ <p>This was a license plate I made for portman, still think that this is funny.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1uBdjWTl2MWtBKO0gdQpFul86H5NqP579","https://drive.google.com/uc?export=view&id=10r1ddao1Zy1igQMv4c6-Io4KbaOZVvcw","https://drive.google.com/uc?export=view&id=13bvT8o1fz-U2DSUD5yoUfxPn8Q42lLvN","https://drive.google.com/uc?export=view&id=1QLJDx2FzmzSbkSRUsIEGnZjNkeZVQkGU","https://drive.google.com/uc?export=view&id=1go2EI3tDmeRgWgQXlOp8LAA5dNreEeBD","https://drive.google.com/uc?export=view&id=14i0IgiTmTRs_xx8B4bqQmYB8-oXqDWxw","https://drive.google.com/uc?export=view&id=1GDK9ZHU4P9lrGNeo7JaO7LyhxclwCgyH","https://drive.google.com/uc?export=view&id=1YZ1j8IXyxlG6JNpkqL1jObVBML7o6AOF","https://drive.google.com/uc?export=view&id=1F3HkiQpazDKq9Hm_ijcA_50N7xxINGuT","https://drive.google.com/uc?export=view&id=12RrsDqESaBhXih3GkfNzeBZWe0d_gH6Y","https://drive.google.com/uc?export=view&id=1EcICtLywtd8NG541Uj8kFpoa1zFGHe7_","https://drive.google.com/uc?export=view&id=1fB4v9Guizn99Z86wraD2A07ozKhnm3v1","https://drive.google.com/uc?export=view&id=13UHtQZWrhDa3ErwccV2KjfC5PuAnnpgu","https://drive.google.com/uc?export=view&id=1Qa6IisYFVaB8XC323WSr4wtVwe6DoKAH","https://drive.google.com/uc?export=view&id=1Qsl6ymYJhQwqbFd4pyMqS_gB_IBfQAng","https://drive.google.com/uc?export=view&id=1aYO1rgDPhnWBTcfOww5fHyQNC7Df510i"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1uBdjWTl2MWtBKO0gdQpFul86H5NqP579" alt="The First Thumbnails">
+ <h3>The First Thumbnails</h3>
+ <p>During my first run at youtube fame my thumbnail game was not great.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1ZEoaGYNxO-euNlHUoq7s-glozwBkEK01","https://drive.google.com/uc?export=view&id=1MgkDzGdqpyn1Lfv1n6Qb-Zh-YLNTFnxD"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1ZEoaGYNxO-euNlHUoq7s-glozwBkEK01" alt="Skull hoodie photography">
+ <h3>Skull hoodie photography</h3>
+ <p>Took these picutres with Chase Linton, a now UGA football player, on a run home. We thought that theres were badass at the time.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="photo"
+    data-content='https://drive.google.com/uc?export=view&id=1yzH2S6vT6XHRO5sxOOAtUjKko0W2erBF'>
+ <img src="https://drive.google.com/uc?export=view&id=1yzH2S6vT6XHRO5sxOOAtUjKko0W2erBF" alt="First competion win">
+ <h3>First competion win</h3>
+ <p>Me and bryce claim our reward for our first ever fortnite tournament win. We would win 3 more times before they shut down the tournement.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="photo"
+    data-content='https://drive.google.com/uc?export=view&id=1Sg2io4wrjL9rMjh7wL_fmyuJAcTJXWvY'>
+ <img src="https://drive.google.com/uc?export=view&id=1Sg2io4wrjL9rMjh7wL_fmyuJAcTJXWvY" alt="First photography attempt ever">
+ <h3>First photography attempt ever</h3>
+ <p>Pretty good pose, but pretty weak photography wise: bad quality, bad framing, just bad overall</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=14qEjBy_Mu_ptg0p8qnOAvpHUeWUayEhr'>
+ <img src="https://drive.google.com/uc?export=view&id=11wQCN-r57FIfiWfRdS3sj5SPJvKF7Hji" alt="Drawing era">
+ <h3>Drawing era</h3>
+ <p>I thought I was the goat artist. I was not, lmao.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1GNyJzJKGaSyXO7AZ8qBCEV-axAHvnd-I","https://drive.google.com/uc?export=view&id=1fumZGgsYYH4YeGBEUuqFL5-eubwfsXWa"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1fumZGgsYYH4YeGBEUuqFL5-eubwfsXWa" alt="Jamie Tart, from Ted Lasso, Design">
+ <h3>Jamie Tart, from Ted Lasso, Design</h3>
+ <p>I love Ted Lasso, jamie tart arcs out so well. This design was good but not great imo.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1pM25l28DfBzAQQ5O4she5FW0UGWBuBG5","https://drive.google.com/uc?export=view&id=1ut70pUOQqqqs_2raNLSmCCBybcZOS0zg"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1ut70pUOQqqqs_2raNLSmCCBybcZOS0zg" alt="Leon Edwards design">
+ <h3>Leon Edwards design</h3>
+ <p>One of the greatest storylines in a fight ever, from the announcers to the acutal kick it was so good it couldn't have been scripted if they wanted to.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1XpjWXJPo5v6IO5mDt7Af7u-wkpSN9mnx","https://drive.google.com/uc?export=view&id=1GL7IkeXUowMWvundgG4kXIcTuMI8dUlW"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1GL7IkeXUowMWvundgG4kXIcTuMI8dUlW" alt="Walking Man">
+ <h3>Walking Man</h3>
+ <p>Created from a picutre of Andrew Garfields spider man I like this picutre a lot. It was one of my first times doing this effect.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1JIN9p3pjhcPBIRCcgvA-nkYabxU62jKp","https://drive.google.com/uc?export=view&id=100v6lYZIGZ3mp5ELrIlBehI0PRd-Ipqa"]'>
+ <img src="https://drive.google.com/uc?export=view&id=100v6lYZIGZ3mp5ELrIlBehI0PRd-Ipqa" alt="Max Holloway">
+ <h3>Max Holloway</h3>
+ <p>I literally had to make this after what he did to justin gaethje, such a badass.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1QrWSqX8dA2A_9G-pRKXu0AsiYP4AEmyd","https://drive.google.com/uc?export=view&id=17EIzRefepgaQvCaLHCp3RgtqOp0CTEAU"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1QrWSqX8dA2A_9G-pRKXu0AsiYP4AEmyd" alt="Max's Stats">
+ <h3>Max's Stats</h3>
+ <p>I never even started this project, but I really like the logos I made. Great color scheme and textures. Also cant go wrong with the ghost mask.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=12cJqCCFpXj_3rab3Z77Gb1Tt6lNSXp0b","https://drive.google.com/uc?export=view&id=1J4_7C9cxjGsBuKK9PU3Push8yFaNKKcA"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1J4_7C9cxjGsBuKK9PU3Push8yFaNKKcA" alt="The MCF Thumbnails">
+ <h3>The MCF Thumbnails</h3>
+ <p>MCF, Max Cole Finance, was gonna be a channel where me and Cole made finance videos, but we didn't follow through with it.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=1bgCekb-msk92IZgSpyie8VgmjRoxZwj6'>
+ <img src="https://drive.google.com/uc?export=view&id=1gYAnwWwC63-jwYbsKvfafHlDkke8maHt" alt="Whos Faster Me or A Storm?">
+ <h3>Whos Faster Me or A Storm?</h3>
+ <p>This video was dumb, I tried to make it good, but it was more so me trying to meet a video quota not make good content.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=1ATS0N06l5M4Xa67Y44DsfqPSVmzBWRlY'>
+ <img src="https://drive.google.com/uc?export=view&id=1HzizegKJxuugZAJfvMxCVZ9uK3ub7UcY" alt="School Green Screen Video">
+ <h3>School Green Screen Video</h3>
+ <p>I do not remeber making this. Its pretty funny though.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=1JW1EF2FWVSvTfMucdNOUIW3OBLmBVKQX'>
+ <img src="https://drive.google.com/uc?export=view&id=14j6CJxuXNZOmCG7Wc2FbMVNrsGErebI9" alt="COD Cold War meme video">
+ <h3>COD Cold War meme video</h3>
+ <p>This was fun to make, and I have nostalgia for that game.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=1lixZ3BdoL6m75dDtGTTdK3lz_7o9zD32'>
+ <img src="https://drive.google.com/uc?export=view&id=19isnvde7BpPL2DkDI3no25trUzwjdl75" alt="Warzone trolling/My first warzone win">
+ <h3>Warzone trolling/My first warzone win</h3>
+ <p>I was really pumping videos out during COVID.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=1lzJq6nCq-MYOia7VVcOoOV44JOTEl29Z'>
+ <img src="https://drive.google.com/uc?export=view&id=1fSAOAqCR-7h8_gg1IUr1g5Vsw9bVvcC6" alt="Warzone funny moments video">
+ <h3>Warzone funny moments video</h3>
+ <p>Why is my mic so loud. Its like earth shatteringly loud.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=1SFFnJtfYpjV3hN2UVLHjdjv7fmkx-g0f'>
+ <img src="https://drive.google.com/uc?export=view&id=1vfFzWNFcEEQ4-YBYxjLv9ae2Jw962AAY" alt="The cycle of life, in minecraft">
+ <h3>The cycle of life, in minecraft</h3>
+ <p>Kinda cool, but I could have put much more effort into this to make it better.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1lcne6aJJ7e81OxDOezddO5hsm703fSga","https://drive.google.com/uc?export=view&id=1nYUAl4WVdykJjehJiuMSPmlpBSoKJsMo","https://drive.google.com/uc?export=view&id=155K5dss-yk60W62cVjXiqcLpCu8zDHhO"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1nYUAl4WVdykJjehJiuMSPmlpBSoKJsMo" alt="Dustin Poirier designs">
+ <h3>Dustin Poirier designs</h3>
+ <p>Made this right before he fought islam mahckichev. What a great fight, DP really took him to his limits. Islam is just too good though.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="photo"
+    data-content='https://drive.google.com/uc?export=view&id=1j9bnTw0jZLkYopSkboh3xIoysTRWErKB'>
+ <img src="https://drive.google.com/uc?export=view&id=1j9bnTw0jZLkYopSkboh3xIoysTRWErKB" alt="Connor Mcgregor, Power">
+ <h3>Connor Mcgregor, Power</h3>
+ <p>Most of my UFC designs are made because of the amazing storylines within the sport. This design was made on the same accord.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://www.youtube.com/embed/xXmBWRpSXi0'>
+ <img src="https://drive.google.com/uc?export=view&id=1PnXJlZ0MTsfAedKnROKT2gstVVmDRxhj" alt="9 Second Ace">
+ <h3>9 Second Ace</h3>
+ <p>One of my best clips, not insane, but just a great clip. Brady and cole do great reactions for it.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://www.youtube.com/embed/A4Q6MCQ1P2c'>
+ <img src="https://drive.google.com/uc?export=view&id=1gLwvq5EUsGXCYpzy_4PzroN_ItRg_T1X" alt="Enemy Montage">
+ <h3>Enemy Montage</h3>
+ <p>The song is better than the edit. Arcane is and will always be the best TV of all time.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://www.youtube.com/embed/E-EZdf4kN-s'>
+ <img src="https://drive.google.com/uc?export=view&id=1Er6J4rNALG2BbyCndivd7Q0Vx_Z8WN7L" alt="Lions Inside Montage">
+ <h3>Lions Inside Montage</h3>
+ <p>For me this one is Top 2 edits I made on this channel. I really love the end, I miss those days. One of the only things in life I regret is the amount of distance I put between my friends and myself.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://www.youtube.com/embed/yXBEVa4xL4g'>
+ <img src="https://drive.google.com/uc?export=view&id=1YX5QqFKOZFEhSHLo7FnXV9l673boo_Xw" alt="Encore Montage">
+ <h3>Encore Montage</h3>
+ <p>I made this for spencer, I do not like that song. I think the edit turned out alright though.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://www.youtube.com/embed/rbujiHeArg4'>
+ <img src="https://drive.google.com/uc?export=view&id=1F9Zzj-6NOKXZ635WRhgA9NjjMP7K8o1Y" alt="Industry Baby Montage">
+ <h3>Industry Baby Montage</h3>
+ <p>This edit was very important to my development and this edit is the first time I used a bunch of techniques that get used a lot in later edits.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://www.youtube.com/embed/9R3idsoq3yI'>
+ <img src="https://drive.google.com/uc?export=view&id=1VqA4k0dP19_GDrH6NhcMrQArVN45lgwO" alt="Gogopixel Trailer">
+ <h3>Gogopixel Trailer</h3>
+ <p>By far my favorite thing I made on this channel. I love movies and I feel like the trailer style is just so satisfying and the pacing is just so good!</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://www.youtube.com/embed/_3vGvivNdRI'>
+ <img src="https://drive.google.com/uc?export=view&id=11UgG9ZqYzGRebHyzgkGnMXYFJVfHBlnD" alt="505 Montage">
+ <h3>505 Montage</h3>
+ <p>My 3rd favorite behind Gogopixel Trailer and Lions inside. I still love that song.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=13bUQTyLNDwSjbTSa-b0N1W2ei_IFvkcH","https://drive.google.com/uc?export=view&id=185GBfS9V0uGe6mLXz3pUqLAUIuXpAkwd"]'>
+ <img src="https://drive.google.com/uc?export=view&id=13bUQTyLNDwSjbTSa-b0N1W2ei_IFvkcH" alt="Rust banners">
+ <h3>Rust banners</h3>
+ <p>Made these for a rust channel that I made, I was going to make rust movies but I sucked to much for the stories to be good ever.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1bfzExTiiALb-_cGCEsg8vvoRDFLcfj9B","https://drive.google.com/uc?export=view&id=1OQXeKsC5K9VNgAXPzQY52W6SfYYpw0tL","https://drive.google.com/uc?export=view&id=1jyQEb6JIcSvcgYDf4RyaWzbtIzy0JaaW"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1bfzExTiiALb-_cGCEsg8vvoRDFLcfj9B" alt="Thumbnails for my rust movie channel">
+ <h3>Thumbnails for my rust movie channel</h3>
+ <p>These thumbnails weren't horrible. I like them but they really aren't great.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://www.youtube.com/embed/fPxpQgsN2Ik'>
+ <img src="https://drive.google.com/uc?export=view&id=1fjoxyqmjXb4R3kRmJ30KfQxHQzb3sJqI" alt="I became an NPC for 24 hours">
+ <h3>I became an NPC for 24 hours</h3>
+ <p>One of my favorite videos I've ever made. I loved doing this with my friends. I want to do this again some day. Also I really like the thumbnail for this one.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://www.youtube.com/embed/LSQWQ8sqBKI'>
+ <img src="https://drive.google.com/uc?export=view&id=1mV-CK94QxMMpoYdjwr4CyXrQwVIVDo9z" alt="Minecrafts fastest path to endgame!">
+ <h3>Minecrafts fastest path to endgame!</h3>
+ <p>Alright video. The other minecraft video is better imo.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1S62mn7YQKSfNrE_zFH6LRRduSXKQgYhT","https://drive.google.com/uc?export=view&id=10Noe6u1VRLr6-raVgXzz6ngMYN4hoZT3","https://drive.google.com/uc?export=view&id=1qTckkcC5N-ZemRntTGtgsdnxua0U1sgr","https://drive.google.com/uc?export=view&id=15Qo61Mf5KuO5JOGw4lkQQ1trhT0IE0Wj"]'>
+ <img src="https://drive.google.com/uc?export=view&id=15Qo61Mf5KuO5JOGw4lkQQ1trhT0IE0Wj" alt="Matrix Test Prep">
+ <h3>Matrix Test Prep</h3>
+ <p>My biggest buisness yet. An SAT platform that trains users to increase their scores. I initially made this so I could increase my score but then I decided to start selling it as well. As of now this site is live at: matrixtestprep.com</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=16w4g4HQF1nYpu680xzQdlVTzncSYEEBF","https://drive.google.com/uc?export=view&id=1qs7j1-Cl9mQGXOX179_gzTlj3n59ezuT","https://drive.google.com/uc?export=view&id=1ArciN8DktEWpRAVPh3p5qbGY1ZJVj6UX","https://drive.google.com/uc?export=view&id=1__zpmdfKslHTCOFAu0bjQu7iLYx4OKFR","https://drive.google.com/uc?export=view&id=1fvjE9hz9Ay_B5ovYH05QhdOJfwYQ6_b2"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1ArciN8DktEWpRAVPh3p5qbGY1ZJVj6UX" alt="Shirt Wreck Mocks">
+ <h3>Shirt Wreck Mocks</h3>
+ <p>All the mocks I had made prior to this point I planned to sell under the brand of Shirt Wreck. I never got around to doing this.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="photo"
+    data-content='https://drive.google.com/uc?export=view&id=1YAe6bvS-WPTw8VP5-uclwC8ZStdVxXvu'>
+ <img src="https://drive.google.com/uc?export=view&id=1YAe6bvS-WPTw8VP5-uclwC8ZStdVxXvu" alt="I stood still for 24 hours">
+ <h3>I stood still for 24 hours</h3>
+ <p>I tried to make this video but didn't end up finishing it. I stood still for 11 hours, then was tired so I went to bed. I decided that because I didn't finish the challenge to just scrap the video. Waste of time? Maybe.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=12boTWFvY3gEa81NCvAWV29XgNDIuZNoC","https://drive.google.com/uc?export=view&id=18qzBuh59AhVZntB16gHfGr_NtWstOvaC"]'>
+ <img src="https://drive.google.com/uc?export=view&id=18qzBuh59AhVZntB16gHfGr_NtWstOvaC" alt="Sugar Sean design">
+ <h3>Sugar Sean design</h3>
+ <p>I really like these. They give me a spider verse type of feel.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=1AIbFtVzs9cuHSC1_Z-OGw1w-0xCfeJsb'>
+ <img src="https://drive.google.com/uc?export=view&id=1OKkFAKuRorKc5hNfPUo1IT8rdlMbFlgX" alt="Symbyote Test Edit">
+ <h3>Symbyote Test Edit</h3>
+ <p>This was the first thing I made on my computer after getting it for christmas. It lead to the jon jones edit. It was inspired by a guy on TikTok called 'Symbyote'.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="gallery"
+    data-content='["https://drive.google.com/uc?export=view&id=1gwx-li9-n2GtyRNz0tkn-7zEG0EI2AH4","https://drive.google.com/uc?export=view&id=1lt4LRI7DsZOKAUXAZBvYcXkZ72f3OD6G","https://drive.google.com/uc?export=view&id=1qMx5fUV-L7XwvLcBIBWm4njp3UeOBSFr","https://drive.google.com/uc?export=view&id=1SYLVS1MMsm2SlbeYiZVsOYZVdESK6koi"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1gwx-li9-n2GtyRNz0tkn-7zEG0EI2AH4" alt="Fortnite Maps Banners 3D Render">
+ <h3>Fortnite Maps Banners 3D Render</h3>
+ <p>These were made for fortnite maps I made. I ended up making a total of $15 from these maps. I had a total of 600 players for one day that month. It would have been good money if I had player retention.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=1Jk_apdr6ahHkkDSF_fcPmK17OcxlS2Oo'>
+ <img src="https://drive.google.com/uc?export=view&id=19IShaldcYbhT5fjAJCAymsI7MJT9bRiW" alt="Are COD Zombies Racist?">
+ <h3>Are COD Zombies Racist?</h3>
+ <p>This video is so great. I love my friends and this is super nostalgic. I wish I documented more of the games we played, good times.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=1OZM0Za92rQZBuj3mRDkJNElgXWhboAOp'>
+ <img src="https://drive.google.com/uc?export=view&id=1psDRVomf5a4aQ9rvlk0NZv4-zphqXpN_" alt="COD Cold war trolling with friends">
+ <h3>COD Cold war trolling with friends</h3>
+ <p>This video is good. This is another video where I wish I documented more of the games me and my friends played, good times.</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=1VdOHVI7VLfuAKK0wxnQLHiRdBk6mY9-5'>
+ <img src="https://drive.google.com/uc?export=view&id=1B38d79CewK9DUVwC7fHBRi_dCTUACb0f" alt="COD Cold war Everyday Montage">
+ <h3>COD Cold war Everyday Montage</h3>
+ <p>Good montage, shows me trying to do things that were more technical that I would later get better at, I.e 3D modeling</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='https://drive.google.com/uc?export=view&id=1c6OldQSE-u8uoWiGlrghxLErT2CsuJCs'>
+ <img src="https://drive.google.com/uc?export=view&id=1og1IDLiXOe0L9RTiISAiTTxBRK5mmsgE" alt="How Much Money Does Dream Make?">
+ <h3>How Much Money Does Dream Make?</h3>
+ <p>Good montage, shows me trying to do things that were more technical that I would later get better at, I.e 3D modeling</p>
+</div>
+
+<div class="portfolio-item"
+    data-type="video"
+    data-content='["https://drive.google.com/uc?export=view&id=1t2rodq8l0cuXcvcEgHu49hZplD0Q82lA","https://drive.google.com/uc?export=view&id=1nDY41-m0GijIK8dkarE49FmRO_MFca1i","https://drive.google.com/uc?export=view&id=1zXZVIDbcJ1KkZdUCmi4z7ONro8lFrdt8"]'>
+ <img src="https://drive.google.com/uc?export=view&id=1zXZVIDbcJ1KkZdUCmi4z7ONro8lFrdt8" alt="Wreck Web designs">
+ <h3>Wreck Web designs</h3>
+ <p>Love these logos. I would totaly make these shirts if I had spare money. I would make them just so I could wear them. I dont even need to sell them.</p>
+</div>
+
+  </div>
 </section>
 
 <footer>
-    © 2024 Maximilian Randklev. Built with curiosity and color. 
-    <br><a href="#hero">Back to top</a>
+  © 2024 Maximilian Randklev. Built with curiosity and color. 
+  <br><a href="#hero">Back to top</a>
 </footer>
 
+<!-- Modal HTML / JS for clickable items (optional) -->
 <div class="modal-overlay" id="modalOverlay">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button id="modalClose">&times;</button>
-        </div>
-        <div class="modal-body">
-        </div>
-        <div class="gallery-controls" id="galleryControls" style="display:none;">
-            <button id="galleryPrev">←</button>
-            <button id="galleryNext">→</button>
-        </div>
+  <div class="modal-content">
+    <div class="modal-header">
+      <button id="modalClose">&times;</button>
     </div>
+    <div class="modal-body"></div>
+    <div class="gallery-controls" id="galleryControls" style="display:none;">
+      <button id="galleryPrev">←</button>
+      <button id="galleryNext">→</button>
+    </div>
+  </div>
 </div>
 
 <script>
-    // Fetch the new data structure
-    fetch('projects.json')
-        .then(response => response.json())
-        .then(data => {
-            buildPortfolio(data.portfolio);
-            attachModalTriggers('.portfolio-item');
-        })
-        .catch(error => console.error('Error loading projects:', error));
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalClose = document.getElementById('modalClose');
+  const modalBody = document.querySelector('.modal-body');
+  const galleryControls = document.getElementById('galleryControls');
+  const galleryPrev = document.getElementById('galleryPrev');
+  const galleryNext = document.getElementById('galleryNext');
 
-        function buildPortfolio(portfolioData) {
-            const portfolioGrid = document.getElementById('portfolioGrid');
-            portfolioGrid.innerHTML = '';
+  let galleryItems = [];
+  let galleryIndex = 0;
 
-            // Sort by date (most recent first)
-            const sortedPortfolio = portfolioData.sort((a, b) => {
-                if (a.date && b.date) {
-                    return new Date(b.date) - new Date(a.date);
-                }
-                return 0; // Keep items without dates unsorted
-            });
+  function openModal(itemType, content) {
+    modalBody.innerHTML = '';
+    galleryControls.style.display = 'none';
+    galleryItems = [];
+    galleryIndex = 0;
 
-            // Create portfolio items
-            sortedPortfolio.forEach(item => {
-                const portfolioItem = document.createElement('div');
-                portfolioItem.classList.add('portfolio-item');
-                portfolioItem.setAttribute('data-type', item.type);
-                if (item.type === 'gallery') {
-                    portfolioItem.setAttribute('data-content', JSON.stringify(item.content));
-                } else if (item.type === 'video' || item.type === 'photo') {
-                    if (Array.isArray(item.content)) {
-                        portfolioItem.setAttribute('data-content', JSON.stringify(item.content));
-                        portfolioItem.setAttribute('data-type', 'gallery');
-                    } else {
-                        portfolioItem.setAttribute('data-content', item.content);
-                    }
-                }
-
-                portfolioItem.innerHTML = `
-                    <img src="${item.thumb}" alt="${item.title}">
-                    <h3>${item.title}</h3>
-                    <p>${item.description}</p>
-                `;
-                portfolioGrid.appendChild(portfolioItem);
-            });
-        }
-
-    window.addEventListener('scroll', () => {
-        const nav = document.querySelector('nav');
-        if(window.scrollY > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-    });
-
-    const modalOverlay = document.getElementById('modalOverlay');
-    const modalClose = document.getElementById('modalClose');
-    const modalBody = modalOverlay.querySelector('.modal-body');
-    const galleryControls = document.getElementById('galleryControls');
-    const galleryPrev = document.getElementById('galleryPrev');
-    const galleryNext = document.getElementById('galleryNext');
-
-    let galleryItems = [];
-    let galleryIndex = 0;
-
-    function openModal(type, content) {
-        modalBody.innerHTML = ''; 
-        galleryControls.style.display = 'none';
-        galleryItems = [];
-        galleryIndex = 0;
-
-        if (type === 'photo') {
-            // content should be a single image
-            const img = document.createElement('img');
-            img.src = content;
-            modalBody.appendChild(img);
-        } else if (type === 'video') {
-            // content could be a youtube link or a local video file
-            if (content.includes('youtube.com/embed') || content.includes('youtu.be')) {
-                const iframe = document.createElement('iframe');
-                iframe.src = content;
-                iframe.width = "560";
-                iframe.height = "315";
-                iframe.setAttribute('frameborder', '0');
-                iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;');
-                iframe.allowFullscreen = true;
-                modalBody.appendChild(iframe);
-            } else {
-                // treat as local video file
-                const video = document.createElement('video');
-                video.src = content;
-                video.controls = true;
-                modalBody.appendChild(video);
-            }
-        } else if (type === 'gallery') {
-            if (typeof content === 'string') {
-                galleryItems = JSON.parse(content);
-            } else {
-                galleryItems = content;
-            }
-            showGalleryItem();
-            if (galleryItems.length > 1) {
-                galleryControls.style.display = 'flex';
-            }
-        }
-
-        modalOverlay.classList.add('active');
+    // If the type is 'gallery' AND content is an array (stringified),
+    // then we'll show the first item and enable next/prev buttons if >1 item.
+    if (itemType === 'gallery') {
+      // If it's already a parsed array, use it. Otherwise parse from string
+      if (typeof content === 'string') {
+        galleryItems = JSON.parse(content);
+      } else {
+        galleryItems = content;
+      }
+      showGalleryItem();
+      if (galleryItems.length > 1) {
+        galleryControls.style.display = 'flex';
+      }
+    }
+    else if (itemType === 'video') {
+      // We have a single "content" string that might be:
+      //  - youtube.com/embed
+      //  - Google Drive share
+      //  - direct mp4 or other video format
+      //  - or even an image
+      showSingleItem(content);
+    }
+    else if (itemType === 'photo') {
+      // Single image or fallback
+      showSingleItem(content);
+    }
+    else {
+      // Fallback: treat as single
+      showSingleItem(content);
     }
 
-    function showGalleryItem() {
-        modalBody.innerHTML = '';
-        if (galleryItems.length === 0) return;
-        const currentItem = galleryItems[galleryIndex];
+    modalOverlay.classList.add('active');
+  }
 
-        // Check if video or image by extension
-        if (/\.(mp4|mov|webm|ogg)$/i.test(currentItem)) {
-            const video = document.createElement('video');
-            video.src = currentItem;
-            video.controls = true;
-            modalBody.appendChild(video);
-        } else if (currentItem.includes('youtube.com/embed') || currentItem.includes('youtu.be')) {
-            const iframe = document.createElement('iframe');
-            iframe.src = currentItem;
-            iframe.width = "560";
-            iframe.height = "315";
-            iframe.setAttribute('frameborder', '0');
-            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;');
-            iframe.allowFullscreen = true;
-            modalBody.appendChild(iframe);
-        } else {
-            const img = document.createElement('img');
-            img.src = currentItem;
-            modalBody.appendChild(img);
-        }
+  function showGalleryItem() {
+    modalBody.innerHTML = '';
+    if (galleryItems.length === 0) return;
+
+    const currentItem = galleryItems[galleryIndex];
+    showSingleItem(currentItem);
+  }
+
+  function showSingleItem(url) {
+    // Clear modal
+    modalBody.innerHTML = '';
+
+    // Check if it's presumably a YouTube embed:
+    if (url.includes('youtube.com/embed') || url.includes('youtu.be')) {
+      const iframe = document.createElement('iframe');
+      iframe.src = url;
+      iframe.width = "560";
+      iframe.height = "315";
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;');
+      iframe.allowFullscreen = true;
+      modalBody.appendChild(iframe);
     }
-
-    galleryPrev.addEventListener('click', () => {
-        galleryIndex--;
-        if (galleryIndex < 0) galleryIndex = galleryItems.length - 1;
-        showGalleryItem();
-    });
-
-    galleryNext.addEventListener('click', () => {
-        galleryIndex++;
-        if (galleryIndex >= galleryItems.length) galleryIndex = 0;
-        showGalleryItem();
-    });
-
-    modalClose.addEventListener('click', () => {
-        modalOverlay.classList.remove('active');
-        modalBody.innerHTML = '';
-    });
-
-    modalOverlay.addEventListener('click', (e) => {
-        if (e.target === modalOverlay) {
-            modalOverlay.classList.remove('active');
-            modalBody.innerHTML = '';
-        }
-    });
-
-    function attachModalTriggers(selector) {
-        document.querySelectorAll(selector).forEach(item => {
-            item.addEventListener('click', () => {
-                const type = item.getAttribute('data-type');
-                let content = item.getAttribute('data-content');
-                if (type === 'gallery') {
-                    content = JSON.parse(content);
-                }
-                openModal(type, content);
-            });
-        });
+    // Check if it's a Google Drive embed or share
+    else if (url.includes('drive.google.com/file/d/')) {
+      const iframe = document.createElement('iframe');
+      iframe.src = url;
+      iframe.width = "560";
+      iframe.height = "315";
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;');
+      iframe.allowFullscreen = true;
+      modalBody.appendChild(iframe);
     }
+    // Direct video file like .mp4, .mov, .webm, etc.
+    else if (/\.(mp4|mov|webm|ogg)$/i.test(url)) {
+      const video = document.createElement('video');
+      video.src = url;
+      video.controls = true;
+      modalBody.appendChild(video);
+    }
+    // If it ends in an image extension, let's treat it as an image
+    else if (/\.(gif|jpg|jpeg|png|webp)$/i.test(url)) {
+      const img = document.createElement('img');
+      img.src = url;
+      modalBody.appendChild(img);
+    }
+    else {
+      // Fallback: treat as an image or embed it in an iframe
+      // If you prefer a fallback to an image, do that. Otherwise:
+      const iframe = document.createElement('iframe');
+      iframe.src = url;
+      iframe.width = "560";
+      iframe.height = "315";
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;');
+      iframe.allowFullscreen = true;
+      modalBody.appendChild(iframe);
+    }
+  }
+
+  galleryPrev.addEventListener('click', () => {
+    galleryIndex--;
+    if (galleryIndex < 0) galleryIndex = galleryItems.length - 1;
+    showGalleryItem();
+  });
+
+  galleryNext.addEventListener('click', () => {
+    galleryIndex++;
+    if (galleryIndex >= galleryItems.length) galleryIndex = 0;
+    showGalleryItem();
+  });
+
+  modalClose.addEventListener('click', () => {
+    modalOverlay.classList.remove('active');
+    modalBody.innerHTML = '';
+  });
+
+  // Close modal if clicking outside the .modal-content
+  modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) {
+      modalOverlay.classList.remove('active');
+      modalBody.innerHTML = '';
+    }
+  });
+
+  // Attach modal triggers
+  document.querySelectorAll('.portfolio-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const type = item.getAttribute('data-type');
+      let content = item.getAttribute('data-content');
+
+      // If it's a gallery, we might have a JSON array string
+      if (type === 'gallery') {
+        try {
+          content = JSON.parse(content);
+        } catch(e) {
+          console.error('Failed to parse gallery content:', e);
+        }
+      }
+      openModal(type, content);
+    });
+  });
 </script>
 </body>
 </html>
+
